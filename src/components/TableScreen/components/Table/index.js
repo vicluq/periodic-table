@@ -2,10 +2,9 @@ import React, { useCallback } from "react";
 import { TableBox, Table } from "./styles";
 import Column from "../Columns";
 
-import { groupBlocks as TableContent } from "../../../../services/data";
 import filterByAtomicNumber from "../../../../util/filterByAtomicNumber";
 
-function PeriodicTable({ data, changeSelectedElem, selectedElem }) {
+function PeriodicTable({ data, changeSelectedElem, selectedElem, groupBlocks }) {
   // Will give a sigle column
   const renderColumn = useCallback(
     (group, index) => {
@@ -30,11 +29,11 @@ function PeriodicTable({ data, changeSelectedElem, selectedElem }) {
 
   // Will give an array of columns
   const renderTableContent = useCallback(() => {
-    const columns = Object.values(TableContent).map((group, index) =>
+    const columns = Object.values(groupBlocks).map((group, index) =>
       renderColumn(group, index)
     );
     return columns;
-  }, [renderColumn]);
+  }, [renderColumn, groupBlocks]);
 
   return (
     <TableBox>

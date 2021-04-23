@@ -1,10 +1,14 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useContext } from "react";
 import PeriodicTable from "./components/Table";
 import { Container } from "./style";
+
+import DataContext from "../../services/context";
 
 function TableScreen({ data }) {
   const [selectedElem, setSelectedElem] = useState("");
 
+  const { elementsData } = useContext(DataContext);
+  console.log();
   const changeSelectedElement = useCallback(
     (atomicNumber) => {
       if (atomicNumber === selectedElem) setSelectedElem(null);
@@ -23,9 +27,10 @@ function TableScreen({ data }) {
         data={data}
         changeSelectedElem={changeSelectedElement}
         selectedElem={selectedElem}
+        groupBlocks={elementsData.groupBlocks}
       />
     );
-  }, [data, changeSelectedElement, selectedElem]);
+  }, [data, changeSelectedElement, selectedElem, elementsData.groupBlocks]);
 
   return (
     <Container>

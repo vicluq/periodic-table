@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Container } from './style';
+import { Container } from "./style";
 
 import TableScreen from "../components/TableScreen";
-import FetchData from '../services/api'
+import FetchData from "../services/api";
+import DataContext from "../services/context";
+import { data as ctxData } from "../services/data";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -21,7 +23,6 @@ function App() {
     setLoading(false);
   }, []);
 
-
   const renderContent = useCallback(() => {
     if (loading) {
       return <h2>Loading ...</h2>;
@@ -35,10 +36,12 @@ function App() {
   }, [data, isError, loading]);
 
   return (
-    <Container>
-      <header className="App-header"></header>
-      {renderContent()}
-    </Container>
+    <DataContext.Provider value={ctxData}>
+      <Container>
+        <header className="App-header"></header>
+        {renderContent()}
+      </Container>
+    </DataContext.Provider>
   );
 }
 
